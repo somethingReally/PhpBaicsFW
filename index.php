@@ -29,5 +29,8 @@ and open the template in the editor.
         $domDom->appendChild($elm);
         echo $domDoc->getAsDOMDocument()->saveHTML();
         ?>
+
+
+
     </body>
 </html>

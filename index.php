@@ -30,7 +30,7 @@ and open the template in the editor.
 //        $domDom->appendChild($elm);
 //        echo $domDom->saveHTML();
         
-        $testController = new TestController(file_get_contents('C:\xampp\htdocs\PhpBaicsFW\TestPanel.php'), new TestModel("David Mc Cartan"));
+        $testController = new TestController(file_get_contents('C:\xampp\htdocs\PhpBaicsFW\TestPanel.php'), new TestModel("David", "Mc Cartan"));
         $testController->updateView();
         echo $testController->getView();
         ?>

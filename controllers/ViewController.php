@@ -16,7 +16,7 @@ abstract class ViewController implements IController {
 
     protected $view;
     protected $domView;
-    protected $model;
+    protected $modelArray = [];
     private $hasBody;
 
     public function __construct($view) {
@@ -25,15 +25,51 @@ abstract class ViewController implements IController {
         $this->domView->loadHTML($this->view);
     }
 
-    protected function convertCssClassIntoMethodCall($cssClass) {
-        $classMethods = get_class_methods(get_class($this->model));
-        $cssClass = str_ireplace("-", "", $cssClass);
-        foreach ($classMethods as $methodName) {
-            $checkedMethodName = preg_replace("%^get%", "", $methodName, 1);
-            if (strtolower($checkedMethodName) === strtolower($cssClass)) {
-                return $this->model->$methodName();
+    protected function convertCssClassIntoMethodCall($cssClasses) {
+        $cssClasses = str_ireplace("-", "", $cssClasses);
+        $cssClassArray = split(" ", $cssClasses);
+
+        $returnArray = [];
+        for ($i = count($this->modelArray) - 1; $i >= 0; $i--) {       
+            $model = $this->modelArray[$i];
+            $classMethods = get_class_methods(get_class($model));
+            $classMethodsFilped = array_change_key_case(array_flip($classMethods));
+            foreach ($cssClassArray as $cssKey => $cssClass) {
+                $this->callMethod($model, $classMethods, $classMethodsFilped
+                        , ["get" . $cssClass, $cssClass]
+                        , $returnArray, $cssClassArray, $cssKey, $i);
             }
         }
+        ksort($returnArray);
+        return $returnArray;
+    }
+
+    private function callMethod(&$model, $classMethodsArray, $classMethodsFilpedArray
+    , $keyArray, &$returnArray, &$cssClassArray, $cssKey, &$i) {
+        foreach ($keyArray as $key) {
+            if (isset($classMethodsFilpedArray[$key]) === false) {
+                continue;
+            }
+            $returnedResult = $model->$classMethodsArray[$classMethodsFilpedArray[$key]]();
+            if (is_object($returnedResult)) {
+                $this->addModel($returnedResult);
+                $i = count($this->modelArray) - 1;
+            } else {
+                $returnArray[$cssKey] = $returnedResult;
+            }
+            unset($cssClassArray[$cssKey]);
+            break;
+        }
+    }
+
+    private function convertCssClassIntoMethodCallUsingModelArray($cssClasses) {
+        $returnArray = [];
+        $cssClasses = str_ireplace("-", "", $cssClasses);
+        $cssClasses = split(" ", $cssClasses);
+        foreach ($this->modelArray as $model) {
+            $returnArray[] = static::convertCssClassIntoMethodCall($cssClasses, $model);
+        }
+        return $returnArray;
     }
 
     protected function getElementsByClassName($classname) {
@@ -46,8 +82,8 @@ abstract class ViewController implements IController {
         return $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' * ')]");
     }
 
-    protected function getClassNameFormDomNode(DomNode $element) {
-        if ($element->attributes === null) {
+    protected function getAttributesFromDomNode(DomNode $element) {
+        if ($element->hasAttributes() === false) {
             return;
         }
         $attributes = [];
@@ -67,16 +103,20 @@ abstract class ViewController implements IController {
         $nodes = $domNode->childNodes;
         for ($i = 0; $i < $nodes->length; $i++) {
             $currentNode = $nodes->item($i);
-            $attributes = $this->getClassNameFormDomNode($currentNode);
+            $attributes = $this->getAttributesFromDomNode($currentNode);
             if (isset($attributes["class"])) {
-                $currentNode->appendChild(new DomText($this->convertCssClassIntoMethodCall($attributes["class"])));
+                $methodReturn = $this->convertCssClassIntoMethodCall($attributes["class"]);
+                $currentNode->appendChild(new DomText(implode(" ", $methodReturn)));
             }
-            //var_dump($attributes);
-            //var_dump($currentNode->hasChildNodes());
-            if ($currentNode->hasChildNodes() ) {
+            if ($currentNode->hasChildNodes()) {
                 $this->trasvereNode($currentNode);
             }
         }
+    }
+
+    protected function addModel($model) {
+        //array_unshift($this->modelArray, $model);
+        $this->modelArray[] = $model;
     }
 
     public function getView() {

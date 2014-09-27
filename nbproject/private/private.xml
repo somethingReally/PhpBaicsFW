@@ -4,12 +4,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/PhpBaicsFW/autoloader.php</file>
-            <file>file:/C:/xampp/htdocs/PhpBaicsFW/ValidtionAndErrorHandler/ErrorHandler.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/TestController.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/ValidtionAndErrorHandler/InputHandler.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/ControllerController.php</file>
-            <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/IFormController.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/ViewController.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/index.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/.gitattributes</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/autoloader.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/TestPanel.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/ValidtionAndErrorHandler/ErrorHandler.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/IFormController.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/TestModel.php</file>
+            <file>file:/C:/xampp/htdocs/PhpBaicsFW/TestOtherModel.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/IController.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/controllers/FormController.php</file>
             <file>file:/C:/xampp/htdocs/PhpBaicsFW/BaiscCollection/Collection.php</file>

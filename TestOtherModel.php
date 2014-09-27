@@ -17,21 +17,24 @@
  */
 
 /**
- * Description of TestController
+ * Description of TestOtherModel
  *
  * @author David
  */
-class TestController extends ViewController {
-
-    public function __construct($view, $model = "") {
-        parent::__construct($view);
-        $this->addModel($model);
+class TestOtherModel {
+    private $dog;
+    private $cat;
+    public function __construct($dog, $cat) {
+        $this->dog = $dog;
+        $this->cat = $cat;
+    }
+    
+    public function getDog() {
+        return $this->dog;
     }
 
-    public function updateView() {
-        $this->transeversAllNodes();
-        $this->view = $this->domView->saveHTML();
+    public function getCat() {
+        return $this->cat;
     }
 
-//put your code here
 }

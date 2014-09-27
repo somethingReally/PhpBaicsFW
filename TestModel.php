@@ -24,13 +24,23 @@
 class TestModel {
 
     private $firstName;
+    private $secondName;
 
-    public function __construct($firstName) {
+    public function __construct($firstName, $secondName) {
         $this->firstName = $firstName;
+        $this->secondName = $secondName;
     }
 
     public function getFirstName() {
         return $this->firstName;
+    }
+
+    public function getSecondName() {
+        return $this->secondName;
+    }
+
+    public function getTestOtherModel() {
+        return new TestOtherModel("Dog Jet", "Cat Tiger");
     }
 
 }

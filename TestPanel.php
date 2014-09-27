@@ -20,7 +20,8 @@ limitations under the License.
         <title></title>
     </head>
     <body>
-        <div class="first-name"></div>
-        <div class="first-name"><div class="first-name"></div><b class="first-name"></b></div>
+        <div class="first-name second-name">Hi my name is: </div>
+        <div class="first-name"><div class="first-name"></div><b class="second-name first-name"></b></div>
+        <div class="test-other-model cat first-name" ><div class="dog second-name dog test"></div></div>
     </body>
 </html>
